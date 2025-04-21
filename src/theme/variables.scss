@@ -1,2 +1,17 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+:root {
+    // Usar el valor de 'tertiary' como 'primary'
+    --ion-color-primary: var(--ion-color-tertiary);
+    --ion-color-primary-rgb: var(--ion-color-tertiary-rgb);
+    --ion-color-primary-contrast: var(--ion-color-tertiary-contrast);
+    --ion-color-primary-contrast-rgb: var(--ion-color-tertiary-contrast-rgb);
+    --ion-color-primary-shade: var(--ion-color-tertiary-shade);
+    --ion-color-primary-tint: var(--ion-color-tertiary-tint);
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+  
+  :root {
+    --ion-font-family: "Potta One", system-ui;
+    }

@@ -1,0 +1,44 @@
+.splash-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #ab85b3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeOut 1s ease 2500ms forwards;
+  }
+  
+  .splash-logo {
+    width: 150px;
+    animation: flipIn 1.2s ease;
+    transform-style: preserve-3d;
+  }
+  
+  .splash-text {
+    color: white;
+    margin-top: 20px;
+    animation: flipIn 1.2s ease;
+    transform-style: preserve-3d;
+  }
+  
+  @keyframes zoomIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+  }
+  
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  @keyframes flipIn {
+    from {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+  }

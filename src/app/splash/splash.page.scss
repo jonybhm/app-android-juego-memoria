@@ -16,11 +16,19 @@
     transform-style: preserve-3d;
   }
   
+  .letras-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .splash-text {
-    color: white;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
     margin-top: 20px;
-    animation: flipIn 1.2s ease;
-    transform-style: preserve-3d;
+    animation: pulse 1s ease infinite alternate;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
   }
   
   @keyframes zoomIn {

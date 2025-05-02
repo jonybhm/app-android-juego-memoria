@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.juegoMemoria',
-  appName: 'app-juego-memoria',
+  appName: 'Juego Memoria',
   webDir: 'www'
 };
 

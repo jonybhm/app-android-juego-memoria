@@ -1,0 +1,31 @@
+ion-card {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    animation: flipIn 1.2s ease;
+    transform-style: preserve-3d;
+  }
+  
+  .reverso {
+    width: 100%;
+    height: 200px;    
+    
+    animation: flipIn 1.2s ease;
+    transform-style: preserve-3d;
+  }
+
+
+  @keyframes flipIn {
+    from {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+  }
+
+ 

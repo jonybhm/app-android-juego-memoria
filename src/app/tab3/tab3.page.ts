@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { PuntajeModalPage } from '../puntaje-modal/puntaje-modal.page';
 
 interface Carta 
 {
@@ -19,8 +21,14 @@ export class Tab3Page {
   cartas: Carta[] = [];
   cartasSeleccionadas: Carta[] = [];
   puedeSeleccionar = false;
+  tiempo: number = 0;
+  timerInterval: any;
+  juegoFinalizado = false;
 
-  constructor() {
+  constructor(
+    private modalController: ModalController
+
+  ) {
   }
 
   empezarJuego(dificultad: 'facil' | 'medio' | 'dificil') 
@@ -70,6 +78,10 @@ export class Tab3Page {
 
     this.cartas = pares;
     this.juegoIniciado = true;
+    this.tiempo = 0;
+    this.timerInterval = setInterval(() => {
+      this.tiempo++;
+    }, 1000);
 
     setTimeout(() => {
       this.cartas.forEach(c => c.estado = 'oculta');
@@ -93,6 +105,8 @@ export class Tab3Page {
       this.puedeSeleccionar = false;
       setTimeout(() => this.verificarPar(), 1000);
     }
+
+    
   }
 
   verificarPar() 
@@ -110,5 +124,35 @@ export class Tab3Page {
     }
     this.cartasSeleccionadas = [];
     this.puedeSeleccionar = true;
+
+    if (this.cartas.every(c => c.estado === 'encontrada')) {
+      clearInterval(this.timerInterval);
+      this.juegoFinalizado = true;
+      this.mostrarPuntaje();
+    }
+  }
+
+  reiniciarJuego() 
+  {
+    this.juegoIniciado = false;
+    this.cartas = [];
+    this.cartasSeleccionadas = [];
+    this.puedeSeleccionar = false;
+    this.tiempo = 0;
+    if (this.timerInterval) clearInterval(this.timerInterval);
+  } 
+
+
+
+  async mostrarPuntaje() {
+    const modal = await this.modalController.create({
+      component: PuntajeModalPage,
+      componentProps: { tiempo: this.tiempo }
+    });
+  
+    this.juegoFinalizado = false;
+    
+    return await modal.present();
+
   }
 }

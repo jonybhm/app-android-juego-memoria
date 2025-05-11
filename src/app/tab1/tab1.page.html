@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card color="light">
+    <ion-card-header class="card-text">Mejores 5:</ion-card-header>
+    <ion-card-content> 
+      <ion-list>
+        <ion-item *ngFor="let item of mejoresTiempos">
+
+          <ion-label>
+            <h2 style="color: rgb(189, 122, 252);">{{ item.usuario }}</h2>
+            <p>Tiempo:</p>
+            <h2 style="color: rgb(115, 62, 165);">{{ item.tiempo }} segundos</h2>
+            <p>Fecha: {{ item.fecha.split("T", 1) }}</p>
+          </ion-label>
+          
+        </ion-item>
+      </ion-list> 
+    </ion-card-content>
+  </ion-card>
+</ion-content>

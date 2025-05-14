@@ -7,6 +7,9 @@ import { signOut } from 'firebase/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { addDoc,collection, Firestore,updateDoc } from '@angular/fire/firestore';
 
+import { SpinnerService } from '../servicios/spinner.service';
+import { SonidosService } from '../servicios/sonidos.service';
+
 @Component({
   selector: 'app-tab4',
   templateUrl: './tab4.page.html',
@@ -34,13 +37,20 @@ export class Tab4Page implements OnInit {
     public auth:Auth,
     private error:ErrorService,
     private firestore:Firestore, 
-
+    private spinner: SpinnerService,
+    private sonido: SonidosService
   ) 
   {}
 
   form!: FormGroup;
 
   ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
+    
     onAuthStateChanged(this.auth, (user) => {
       this.logueado = !!user;
     });
@@ -78,6 +88,8 @@ export class Tab4Page implements OnInit {
 
   Registrarse()
   {
+    this.sonido.ejecutarSonido('boton');
+
     createUserWithEmailAndPassword(this.auth, this.form.value.correo, this.form.value.clave).then((res) => {
       if(res.user.email !== null) this.usuarioLogeado = res.user.email;
 
@@ -154,6 +166,7 @@ export class Tab4Page implements OnInit {
 
   IniciarSesion()
   {
+    this.sonido.ejecutarSonido('boton');
     signInWithEmailAndPassword(this.auth, this.usuario, this.contrasena).then((res)=>{
       this.errorLogeo = false;
       this.error.Toast.fire(
@@ -211,6 +224,7 @@ export class Tab4Page implements OnInit {
 
   CerrarSesion() 
   {
+    this.sonido.ejecutarSonido('logout');
     signOut(this.auth).then(() => {
 
       this.usuario ="";
@@ -225,6 +239,7 @@ export class Tab4Page implements OnInit {
 
   Autocompletar(rol:string)
   {
+    this.sonido.ejecutarSonido('boton');
     switch(rol)
     {
       case 'usuario1':

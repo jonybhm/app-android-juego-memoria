@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {Auth} from '@angular/fire/auth'
 import { ModalController } from '@ionic/angular';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-
+import { SonidosService } from '../servicios/sonidos.service';
 @Component({
   selector: 'app-puntaje-modal',
   templateUrl: './puntaje-modal.page.html',
   styleUrls: ['./puntaje-modal.page.scss'],
   standalone:false
 })
-export class PuntajeModalPage  {
+export class PuntajeModalPage implements OnInit {
 
   @Input() tiempo: number = 0;
 
@@ -17,10 +17,13 @@ export class PuntajeModalPage  {
     private modalCtrl: ModalController,
     public auth:Auth,
     private firestore: Firestore,
+    private sonido: SonidosService
 
   ) {}
 
-
+ngOnInit(): void {
+  this.sonido.ejecutarSonido('victoria')
+}
 
   guardarResultado() 
   {

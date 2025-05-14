@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PuntajeModalPage } from '../puntaje-modal/puntaje-modal.page';
+import { SonidosService } from '../servicios/sonidos.service';
+import { SpinnerService } from '../servicios/spinner.service';
 
 interface Carta 
 {
@@ -15,7 +17,7 @@ interface Carta
   styleUrls: ['tab3.page.scss'],
   standalone: false,
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit{
 
   juegoIniciado = false;
   cartas: Carta[] = [];
@@ -26,13 +28,25 @@ export class Tab3Page {
   juegoFinalizado = false;
 
   constructor(
-    private modalController: ModalController
+    private modalController: ModalController,
+    private spinner: SpinnerService,
+    private sonido:SonidosService
 
   ) {
   }
 
+  ngOnInit(): void {
+    this.spinner.show();
+    
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);    
+  }
+  
+
   empezarJuego(dificultad: 'facil' | 'medio' | 'dificil') 
   {
+    this.sonido.ejecutarSonido('juego');
     let cantidadPares = 3;
     let imagenes = 
     [
@@ -92,6 +106,8 @@ export class Tab3Page {
 
   seleccionarCarta(carta: Carta) 
   {
+    this.sonido.ejecutarSonido('carta');
+
     if (!this.puedeSeleccionar || carta.estado !== 'oculta' || this.cartasSeleccionadas.length >= 2) 
     {
         return;
@@ -134,6 +150,8 @@ export class Tab3Page {
 
   reiniciarJuego() 
   {
+    this.sonido.ejecutarSonido('juego');
+
     this.juegoIniciado = false;
     this.cartas = [];
     this.cartasSeleccionadas = [];

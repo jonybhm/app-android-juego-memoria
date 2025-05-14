@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { query, collection, Firestore, orderBy, collectionData, where } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { doc, updateDoc, arrayUnion, increment,arrayRemove,deleteDoc, limit  } from 'firebase/firestore';
-
+import { SpinnerService } from '../servicios/spinner.service';
 @Component({
   selector: 'app-tab1',
   templateUrl: './tab1.page.html',
@@ -16,10 +16,18 @@ export class Tab1Page implements OnInit {
   mejoresTiempos: any[] = [];
   constructor(
     private firestore: Firestore,
+    private spinner:SpinnerService
 
   ) { }
 
   ngOnInit() {
+
+    this.spinner.show();
+    
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 2000);
+
     this.obtenerItemsCosasDB('resultadosMemoria');
 
   }
